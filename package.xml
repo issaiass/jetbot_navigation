@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>jetbot_navigation</name>
+
+  <version>0.0.1</version>
+
+  <description> 
+    The jetbot_navigation provides roslaunch scripts for starting the navigation based on turtlebo3_navigation. 
+  </description>
+
+  <license>CCSA2.0</license>
+
+  <author email="issaiass@hotmail.com">Pyo</author>
+
+  <maintainer email="issaiass@hotmail.com">Rangel Alvarado</maintainer>  
+
+  <url type="website">http://daqsyspty.com</url>
+  <url type="repository">https://github.com/issaiass/jetbot_navigation</url>
+  <url type="bugtracker">https://github.com/issaiass/jetbot_navigation/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>amcl</exec_depend>
+  <exec_depend>map_server</exec_depend>
+  <exec_depend>move_base</exec_depend>
+  <exec_depend>jetbot_viz</exec_depend>
+
+</package>
