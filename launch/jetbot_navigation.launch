@@ -11,22 +11,24 @@
   <!-- World where the jetbot will be spawned -->
   <arg name="world_name" default="$(find jetbot_gazebo)/worlds/turtlebot3_world.world" />
   <!-- arguments for the realsense camera to load -->
-  <arg name="pointcloud_enable" default="false" />
-  <arg name="realsense_enable" default="false" /> 
+  <arg name="pointcloud_enable" default="true" />
+  <arg name="realsense_enable" default="true" /> 
   <!-- arguments for lidar use -->
   <arg name="lidar_enable" default="true" />
   <arg name="visualize_laser" default="true" /> 
   <!-- argument for imu use -->
   <arg name="imu_enable" default="true" />  
   <!-- argument for gps use -->
-  <arg name="gps_enable" default="false" />  
+  <arg name="gps_enable" default="true" />  
   <!-- argument for ultrasonic use -->
-  <arg name="ultrasonic_enable" default="false" />
+  <arg name="ultrasonic_enable" default="true" />
   <!-- Position of the robot -->
   <arg name="x" default="1.0"/>
   <arg name="y" default="2.0"/>
   <arg name="z" default="-1.0"/>
   <arg name="yaw" default="0.0"/>    
+  <!-- Position of the robot -->
+  <arg name="local_planner" default="teb" />
 
   <!-- Map server -->
   <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
@@ -37,6 +39,7 @@
   <!-- move_base -->
   <include file="$(find jetbot_navigation)/launch/move_base.launch">
     <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+    <arg name="local_planner" value="$(arg local_planner)" />
   </include>
 
   <!-- gazebo controller manager -->
