@@ -18,6 +18,6 @@
     <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" if="$(eval arg('local_planner') == 'dwa')"/>
     <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" if="$(eval arg('local_planner') == 'teb')"/>    
     <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)"/>
-    <param name="controller_frequency" value="10.0" />
+    <!--param name="controller_frequency" value="50.0" if="$(eval arg('local_planner') == 'teb')" /-->
   </node>
 </launch>

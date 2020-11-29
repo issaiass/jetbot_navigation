@@ -28,7 +28,7 @@
   <arg name="z" default="-1.0"/>
   <arg name="yaw" default="0.0"/>    
   <!-- Position of the robot -->
-  <arg name="local_planner" default="teb" />
+  <arg name="local_planner" default="dwa" />
 
   <!-- Map server -->
   <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
@@ -54,7 +54,7 @@
     <arg name="imu_enable" value="$(arg imu_enable)"/>
     <arg name="gps_enable" value="$(arg gps_enable)"/>
     <arg name="ultrasonic_enable" value="$(arg ultrasonic_enable)"/>
-    <arg name="rvizconfig" value="$(arg rvizconfig)"/>    
+    <arg name="rvizconfig" value="$(arg rvizconfig)"/> 
   </include>
 
 </launch>
