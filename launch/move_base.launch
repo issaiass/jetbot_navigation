@@ -4,8 +4,10 @@
   <arg name="odom_topic" default="odom" />
   <arg name="move_forward_only" default="false"/>
   <arg name="local_planner" default='dwa' />
+  <arg name="move_base_flex" default='0' doc="move_base type [0,default = move_base; 1 = move_base_flex]" />
 
   <!-- move_base -->
+  <group if="$(eval arg('move_base_flex') == 0)">
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
     <rosparam file="$(find jetbot_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find jetbot_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
@@ -20,4 +22,23 @@
     <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)"/>
     <!--param name="controller_frequency" value="50.0" if="$(eval arg('local_planner') == 'teb')" /-->
   </node>
+  </group>
+
+  <!-- Move base flex -->
+  <group if="$(eval arg('move_base_flex') == 1)">
+    <node name="move_base_flex" pkg="mbf_costmap_nav" type="mbf_costmap_nav" required="true" output="screen">
+      <rosparam file="$(find jetbot_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+      <rosparam file="$(find jetbot_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+      <rosparam file="$(find jetbot_navigation)/param/local_costmap_params.yaml" command="load" />
+      <rosparam file="$(find jetbot_navigation)/param/global_costmap_params.yaml" command="load" />
+      <rosparam file="$(find jetbot_navigation)/param/move_base_flex_params.yaml" command="load"/>
+      <rosparam file="$(find jetbot_navigation)/param/dwa_local_planner_params.yaml" command="load" />
+      <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+      <remap from="odom" to="$(arg odom_topic)"/>
+    </node>
+
+    <node name="move_base_legacy_relay" pkg="mbf_costmap_nav" type="move_base_legacy_relay.py"/>
+  </group>
+
+
 </launch>

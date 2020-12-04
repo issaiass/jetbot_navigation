@@ -4,10 +4,16 @@
   <!-- roslaunch jetbot_gazebo spawn_jetbot.launch -->
 
   <!-- Arguments -->
+  <!-- Move base or Move base flex -->
+  <arg name="move_base_flex" default='0' doc="move_base type [0, default = move_base; 1 = move_base_flex]"/>
+  <!-- Map, visualization config and other args -->
   <arg name="map_file" default="$(find jetbot_navigation)/maps/map.yaml"/>  
   <arg name="open_rviz" default="true"/>
   <arg name="move_forward_only" default="false"/>
-  <arg name="rvizconfig" default="$(find jetbot_viz)/rviz/jetbot_navigation.rviz" />
+  <arg name="rvizconfig" default="$(find jetbot_viz)/rviz/jetbot_navigation_move_base.rviz" 
+       if="$(eval arg('move_base_flex') == 0)"/>
+  <arg name="rvizconfig" default="$(find jetbot_viz)/rviz/jetbot_navigation_move_base_flex.rviz" 
+       if="$(eval arg('move_base_flex') == 1)"/>       
   <!-- World where the jetbot will be spawned -->
   <arg name="world_name" default="$(find jetbot_gazebo)/worlds/turtlebot3_world.world" />
   <!-- arguments for the realsense camera to load -->
@@ -40,6 +46,7 @@
   <include file="$(find jetbot_navigation)/launch/move_base.launch">
     <arg name="move_forward_only" value="$(arg move_forward_only)"/>
     <arg name="local_planner" value="$(arg local_planner)" />
+    <arg name="move_base_flex" value="$(arg move_base_flex)" />
   </include>
 
   <!-- gazebo controller manager -->
